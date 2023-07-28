@@ -12,8 +12,4 @@
 		<PathMap>$(MSBuildProjectDirectory)=$(MSBuildProjectName)</PathMap>
 	</PropertyGroup>
 
-	<ItemGroup>
-		<Folder Include="Task\" />
-	</ItemGroup>
-
 </Project>

@@ -1,27 +1,24 @@
-﻿namespace TqkLibrary.Linq
+﻿using System.Collections;
+
+namespace TqkLibrary.Linq
 {
     public static partial class Extensions
     {
-        static readonly Random random = new Random(
-#if NET7_0_OR_GREATER
-            DateTime.Now.Microsecond
-#else
-            DateTime.Now.Millisecond
-#endif
-            );
         /// <summary>
         /// 
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="sources"></param>
+        /// <param name="seed"></param>
         /// <returns></returns>
-        public static T GetRandomItem<T>(this IEnumerable<T> sources)
+        public static T GetRandomItem<T>(this IEnumerable<T> sources,int? seed = null)
         {
             if (sources is null)
                 return default(T);
-            System.Collections.ICollection items = sources is System.Collections.ICollection ? (System.Collections.ICollection)sources : sources.ToList();
+            ICollection items = sources is ICollection ? (ICollection)sources : sources.ToList();
             if (items.Count == 0)
                 return default(T);
+            var random = seed.HasValue ? new Random(seed.Value) : new Random();
             return sources.Skip(random.Next(items.Count)).First();
         }
 
@@ -40,7 +37,7 @@
             if (take <= 0)
                 return Enumerable.Empty<T>();
 
-            System.Collections.Generic.ICollection<T> items = sources is System.Collections.Generic.ICollection<T> ? (System.Collections.Generic.ICollection<T>)sources : sources.ToList();
+            ICollection<T> items = sources is ICollection<T> ? (ICollection<T>)sources : sources.ToList();
             if (items.Count == 0)
                 return Enumerable.Empty<T>();
 
@@ -50,7 +47,9 @@
             List<T> result = new List<T>();
             while (result.Count < take)
             {
-                result.Add(items.Except(result).GetRandomItem());
+                var item = items.Except(result).GetRandomItem();
+                if (item is not null) result.Add(item);
+                else break;
             }
             return result;
         }

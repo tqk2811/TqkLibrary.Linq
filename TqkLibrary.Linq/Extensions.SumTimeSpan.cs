@@ -45,7 +45,7 @@ namespace TqkLibrary.Linq
         /// <param name="collections"></param>
         /// <param name="func"></param>
         /// <returns></returns>
-        public static async ValueTask<TimeSpan> SumAsync<T>(this IEnumerable<T> collections, Func<T, ValueTask<TimeSpan>> func)
+        public static async Task<TimeSpan> SumAsync<T>(this IEnumerable<T> collections, Func<T, Task<TimeSpan>> func)
         {
             TimeSpan timeSpan = TimeSpan.Zero;
             foreach (var item in collections)

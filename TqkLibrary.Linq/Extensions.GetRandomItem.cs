@@ -25,7 +25,7 @@ namespace TqkLibrary.Linq
         public static T? GetRandomItem<T>(this IEnumerable<T> sources, Random? random = null)
         {
             if (random is null)
-                random = new Random(unchecked(sources.GetHashCode() + DateTime.Now.Millisecond));
+                random = new Random(unchecked(sources.GetHashCode() + DateTime.Now.GetHashCode()));
             return sources.At(random.Next(sources.Count()));
         }
 

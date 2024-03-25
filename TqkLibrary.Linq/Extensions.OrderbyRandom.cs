@@ -25,7 +25,9 @@
         /// <returns></returns>
         public static IEnumerable<T> OrderByRandom<T>(this IEnumerable<T> sources, Random? random = null)
         {
-            return sources.OrderBy(x => (random ?? new Random(DateTime.Now.Millisecond)).Next());
+            if (random is null)
+                random = new Random(unchecked(sources.GetHashCode() + DateTime.Now.Millisecond));
+            return sources.OrderBy(x => random.Next());
         }
     }
 }

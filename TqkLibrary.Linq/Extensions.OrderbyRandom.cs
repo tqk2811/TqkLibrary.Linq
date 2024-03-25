@@ -12,10 +12,20 @@
         /// <param name="sources"></param>
         /// <param name="seed"></param>
         /// <returns></returns>
-        public static IEnumerable<T> OrderByRandom<T>(this IEnumerable<T> sources, int? seed = null)
+        public static IEnumerable<T> OrderByRandom<T>(this IEnumerable<T> sources, int seed)
         {
-            var random = seed.HasValue ? new Random(seed.Value) : new Random();
-            return sources.OrderBy(x => random.Next());
+            return sources.OrderByRandom(new Random(seed));
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="sources"></param>
+        /// <param name="random"></param>
+        /// <returns></returns>
+        public static IEnumerable<T> OrderByRandom<T>(this IEnumerable<T> sources, Random? random = null)
+        {
+            return sources.OrderBy(x => (random ?? new Random(DateTime.Now.Millisecond)).Next());
         }
     }
 }

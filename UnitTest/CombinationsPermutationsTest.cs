@@ -1,3 +1,5 @@
+using System.Diagnostics;
+
 namespace UnitTest
 {
     [TestClass]
@@ -38,6 +40,27 @@ namespace UnitTest
 
                 Assert.IsTrue(result.Except(line).Any(x => x.Intersect(line).Count() < k));
             }
+        }
+
+        [TestMethod]
+        public void TestMultiPermutations()
+        {
+            string[][] strings =
+            {
+                new string[]{ "A1", "A2", "A3" },
+                new string[]{ "B1", "B2" },
+                new string[]{ "C1", "C2", "C3", "C4" },
+            };
+
+            foreach (var item in strings.TwoDimensionCombinations())
+            {
+                foreach (var item1 in item)
+                {
+                    Debug.Write(item1 + "\t");
+                }
+                Debug.WriteLine("");
+            };
+
         }
     }
 }

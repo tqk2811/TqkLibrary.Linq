@@ -17,7 +17,7 @@ namespace TqkLibrary.Linq
         /// <param name="selector"></param>
         /// <returns></returns>
         /// <exception cref="ArgumentNullException"></exception>
-        public static async Task<IReadOnlyList<TSelector>> SellectAsync<T, TSelector>(
+        public static async Task<IReadOnlyList<TSelector>> SelectAsync<T, TSelector>(
             this IEnumerable<T> source,
             Func<T, Task<TSelector>> selector
             )
@@ -42,7 +42,7 @@ namespace TqkLibrary.Linq
         /// <returns></returns>
         /// <exception cref="ArgumentNullException"></exception>
         /// <exception cref="ArgumentOutOfRangeException"></exception>
-        public static async Task<IReadOnlyList<TSelector>> SellectAsync<T, TSelector>(
+        public static async Task<IReadOnlyList<TSelector>> SelectAsync<T, TSelector>(
             this IEnumerable<T> source,
             Func<T, Task<TSelector>> selector,
             int maxDegreeOfParallelism
